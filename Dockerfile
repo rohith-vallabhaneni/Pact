@@ -6,6 +6,10 @@ FROM phusion/passenger-ruby22:0.9.17
 
 EXPOSE 80
 ENV APP_HOME=/home/app/pact_broker
+ENV PACT_BROKER_DATABASE_USERNAME=postgres
+ENV PACT_BROKER_DATABASE_PASSWORD=Welcome@1234
+ENV PACT_BROKER_DATABASE_HOST=54.207.30.143
+ENV PACT_BROKER_DATABASE_NAME=postgres
 CMD ["/sbin/my_init"]
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
