@@ -3,7 +3,6 @@ require 'logger'
 require 'sequel'
 require 'pact_broker'
 require 'delegate'
-# server.rb
 require 'sinatra'
 
 get '/.well-known/live' do  
