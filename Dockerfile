@@ -4,22 +4,24 @@
 #           |==> HERE
 FROM phusion/passenger-ruby22:0.9.17
 
-EXPOSE 80
+#EXPOSE 80
 ENV APP_HOME=/home/app/pact_broker
 ENV PACT_BROKER_DATABASE_USERNAME=postgres
 ENV PACT_BROKER_DATABASE_PASSWORD=Welcome@1234
 ENV PACT_BROKER_DATABASE_HOST=54.207.30.143
 ENV PACT_BROKER_DATABASE_NAME=postgres
+ENV DRP_CF_HTTP_PORT=85
+EXPOSE $DRP_CF_HTTP_PORT
 CMD ["/sbin/my_init"]
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
 ADD container /
-
+ADD change.sh /bin/
 ADD pact_broker/config.ru $APP_HOME/
 ADD pact_broker/Gemfile $APP_HOME/
 ADD pact_broker/Gemfile.lock $APP_HOME/
 RUN chown -R app:app $APP_HOME
-
+ENTRYPOINT ["/bin/change.sh"]
 # Update system gems for:
 # https://www.ruby-lang.org/en/news/2017/08/29/multiple-vulnerabilities-in-rubygems/
 RUN gem update --system
