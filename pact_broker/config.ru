@@ -3,15 +3,6 @@ require 'logger'
 require 'sequel'
 require 'pact_broker'
 require 'delegate'
-require 'sinatra'
-
-get '/.well-known/live' do  
-  status '204'
-end 
-
-get '/.well-known/ready' do  
-  status '204'
-end  
 
 class DatabaseLogger < SimpleDelegator
   def info *args
