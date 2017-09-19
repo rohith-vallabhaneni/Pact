@@ -1,0 +1,18 @@
+---
+customer: platform
+vertical: cdc
+
+#before: echo "This is a before command"
+
+build: env
+
+services:
+- id: pactbroker
+  type: dockerfile
+  check: true
+
+tests:
+
+watchers:
+- navyateja.otturu@ggktech.com
+- rohith.vallabhaneni@ggktech.com

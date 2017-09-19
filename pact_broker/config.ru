@@ -18,6 +18,16 @@ if defined?(PhusionPassenger)
   end
 end
 
+logger = Logger.new(STDOUT)
+logger.info("Database values")
+#logger.debug(ENV['PACT_BROKER_DATABASE_USERNAME'])
+logger.debug(ENV['DRP_EV_POSTGRESQL_URL'])
+
+ENV['PACT_BROKER_DATABASE_USERNAME']=ENV['DRP_EV_POSTGRESQL_URL'].split(':')[1].split('/')[2]
+ENV['PACT_BROKER_DATABASE_PASSWORD']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[0].split(':')[2]
+ENV['PACT_BROKER_DATABASE_HOST']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[1].split(':')[0]
+ENV['PACT_BROKER_DATABASE_NAME']=ENV['DRP_EV_POSTGRESQL_URL'].split('/')[3]
+
 database_adapter = ENV.fetch('PACT_BROKER_DATABASE_ADAPTER','') != '' ? ENV['PACT_BROKER_DATABASE_ADAPTER'] : 'postgres'
 
 DATABASE_CREDENTIALS = {
