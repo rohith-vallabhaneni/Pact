@@ -24,11 +24,17 @@ logger.info("Database values")
 #logger.debug(ENV['PACT_BROKER_DATABASE_USERNAME'])
 uri = URI.parse(ENV['DRP_EV_POSTGRESQL_URL'])
 logger.debug(ENV['DRP_EV_POSTGRESQL_URL'])
+logger.debug(uri)
 
-ENV['PACT_BROKER_DATABASE_USERNAME']=ENV['DRP_EV_POSTGRESQL_URL'].split(':')[1].split('/')[2]
-ENV['PACT_BROKER_DATABASE_PASSWORD']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[0].split(':')[2]
-ENV['PACT_BROKER_DATABASE_HOST']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[1].split(':')[0]
-ENV['PACT_BROKER_DATABASE_NAME']=ENV['DRP_EV_POSTGRESQL_URL'].split('/')[3]
+#ENV['PACT_BROKER_DATABASE_USERNAME']=ENV['DRP_EV_POSTGRESQL_URL'].split(':')[1].split('/')[2]
+#ENV['PACT_BROKER_DATABASE_PASSWORD']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[0].split(':')[2]
+#ENV['PACT_BROKER_DATABASE_HOST']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[1].split(':')[0]
+#ENV['PACT_BROKER_DATABASE_NAME']=ENV['DRP_EV_POSTGRESQL_URL'].split('/')[3]
+
+ENV['PACT_BROKER_DATABASE_USERNAME']=uri.split(':')[1].split('/')[2]
+ENV['PACT_BROKER_DATABASE_PASSWORD']=uri.split('@')[0].split(':')[2]
+ENV['PACT_BROKER_DATABASE_HOST']=uri.split('@')[1].split(':')[0]
+ENV['PACT_BROKER_DATABASE_NAME']=uri.split('/')[3]
 
 logger.debug(ENV['PACT_BROKER_DATABASE_PASSWORD'])
 
