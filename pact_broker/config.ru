@@ -3,6 +3,7 @@ require 'logger'
 require 'sequel'
 require 'pact_broker'
 require 'delegate'
+require 'uri'
 
 class DatabaseLogger < SimpleDelegator
   def info *args
@@ -21,12 +22,15 @@ end
 logger = Logger.new(STDOUT)
 logger.info("Database values")
 #logger.debug(ENV['PACT_BROKER_DATABASE_USERNAME'])
+uri = URI.parse(ENV['DRP_EV_POSTGRESQL_URL'])
 logger.debug(ENV['DRP_EV_POSTGRESQL_URL'])
 
 ENV['PACT_BROKER_DATABASE_USERNAME']=ENV['DRP_EV_POSTGRESQL_URL'].split(':')[1].split('/')[2]
 ENV['PACT_BROKER_DATABASE_PASSWORD']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[0].split(':')[2]
 ENV['PACT_BROKER_DATABASE_HOST']=ENV['DRP_EV_POSTGRESQL_URL'].split('@')[1].split(':')[0]
 ENV['PACT_BROKER_DATABASE_NAME']=ENV['DRP_EV_POSTGRESQL_URL'].split('/')[3]
+
+logger.debug(ENV['PACT_BROKER_DATABASE_PASSWORD'])
 
 database_adapter = ENV.fetch('PACT_BROKER_DATABASE_ADAPTER','') != '' ? ENV['PACT_BROKER_DATABASE_ADAPTER'] : 'postgres'
 
